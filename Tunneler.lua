@@ -100,15 +100,15 @@ until ( ( type(width) == "number" ) and ( width > 0 ) )
 -- Gets the height of the tunnel user would like
 repeat
 
-	io.write("What is the height? \n - Even numbers above 1. \n")
+	io.write("What is the height? \n")
 	height = tonumber( io.read() )
 	
 	-- Outputs to user a message if not number or 1 or above
-	if ( ( height == nil ) or ( height < 1 ) or ( height % 2 == 1 ) ) then 
-		io.write("Not a number above 0 that is odd. \n")
+	if ( ( height == nil ) or ( height < 1 ) ) then 
+		io.write("Not a number above 0. \n")
 	end
 	
-until ( ( type(height) == "number" ) and ( height > 0 ) and ( height % 2 == 0 ) )
+until ( ( type(height) == "number" ) and ( height > 0 ) )
 
 -- Gets the length of the tunnel user would like
 repeat
@@ -138,19 +138,39 @@ for x = 0, length - 2, 1 do
 			-- Checks to see if need to move to side
 			if ( width > 1 ) then
 			
-				-- Checks which row on and then decide which way to move about
-				if ( y % 2 == 0 ) then
-					turtle.turnRight()
-					digAndSuck("0")
-					turtle.forward()
-					turtle.turnLeft()
+				-- Checks if height is odd and layer on is down
+				if ( ( height % 2 == 1 ) and ( x % 2 == 1 ) ) then
+					
+					-- Checks which row on and then decide which way to move about
+					if ( y % 2 == 0 ) then
+						turtle.turnLeft()
+						digAndSuck("0")
+						turtle.forward()
+						turtle.turnRight()
+					else
+						turtle.turnRight()
+						digAndSuck("0")
+						turtle.forward()
+						turtle.turnLeft()
+					end
+					
 				else
-					turtle.turnLeft()
-					digAndSuck("0")
-					turtle.forward()
-					turtle.turnRight()
+				
+					-- Checks which row on and then decide which way to move about
+					if ( y % 2 == 0 ) then
+						turtle.turnRight()
+						digAndSuck("0")
+						turtle.forward()
+						turtle.turnLeft()
+					else
+						turtle.turnLeft()
+						digAndSuck("0")
+						turtle.forward()
+						turtle.turnRight()
+					end
+				
 				end
-
+				
 			end
 			digAndSuck("0")
 		end
@@ -170,3 +190,5 @@ for x = 0, length - 2, 1 do
 	digAndSuck("0")
 	turtle.forward()
 end
+
+io.write("Tunnel complete!")
