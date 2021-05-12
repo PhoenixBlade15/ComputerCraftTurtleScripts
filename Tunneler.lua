@@ -87,47 +87,47 @@ tryRefuel()
 -- Gets width of the tunnel user would like
 repeat
 
-	io.write("What is the width? \n - Odd numbers above 1. \n")
+	io.write("What is the width? \n")
 	width = tonumber( io.read() )
 	
 	-- Outputs to user a message if not number or 1 or above
-	if ( ( width == nil ) or ( width < 1 ) or ( width % 2 == 0 ) ) then 
-		io.write("Not a number above 0 that is odd. \n")
+	if ( ( width == nil ) or ( width < 1 ) ) then 
+		io.write("Not a number above 0. \n")
 	end
 	
-until ( ( type(width) == "number" ) and ( width > 0 ) and ( width % 2 == 1 ) )
+until ( ( type(width) == "number" ) and ( width > 0 ) )
 
 -- Gets the height of the tunnel user would like
 repeat
 
-	io.write("What is the height? \n - Odd numbers above 1. \n")
+	io.write("What is the height? \n - Even numbers above 1. \n")
 	height = tonumber( io.read() )
 	
 	-- Outputs to user a message if not number or 1 or above
-	if ( ( height == nil ) or ( height < 1 ) or ( height % 2 == 0 ) ) then 
+	if ( ( height == nil ) or ( height < 1 ) or ( height % 2 == 1 ) ) then 
 		io.write("Not a number above 0 that is odd. \n")
 	end
 	
-until ( ( type(height) == "number" ) and ( height > 0 ) and ( height % 2 == 1 ) )
+until ( ( type(height) == "number" ) and ( height > 0 ) and ( height % 2 == 0 ) )
 
 -- Gets the length of the tunnel user would like
 repeat
 
-	io.write("What is the length? \n - Odd numbers above 1. \n")
+	io.write("What is the length? \n")
 	length = tonumber( io.read() )
 	
 	-- Outputs to user a message if not number or 1 or above
-	if ( ( length == nil ) or ( length < 1 ) or ( length % 2 == 0 ) ) then 
-		io.write("Not a number above 0 that is odd. \n")
+	if ( ( length == nil ) or ( length < 1 ) ) then 
+		io.write("Not a number above 0. \n")
 	end
 	
-until ( ( type(length) == "number" ) and ( length > 0 ) and ( length % 2 == 1 ) )
+until ( ( type(length) == "number" ) and ( length > 0 ) )
 
 -- For each layer
 for x = 0, length - 2, 1 do
 
 	-- For each row
-	for y = 0, height - 2, 1 do
+	for y = 0, height - 1, 1 do
 	
 		-- Each block in a row
 		for z = 0, width - 2, 1 do 
@@ -155,13 +155,15 @@ for x = 0, length - 2, 1 do
 			digAndSuck("0")
 		end
 		
-			-- Checks which layer on to decide to move up or down
-			if ( x % 2 == 0 ) then
-				digAndSuck("1")
-				turtle.up()
-			else
-				digAndSuck("2")
-				turtle.down()
+			if ( y ~= height - 1 ) then
+				-- Checks which layer on to decide to move up or down
+				if ( x % 2 == 0 ) then
+					digAndSuck("1")
+					turtle.up()
+				else
+					digAndSuck("2")
+					turtle.down()
+				end
 			end
 		
 	end
